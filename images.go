@@ -18,7 +18,12 @@ func main() {
 		panic(err)
 	}
 
-	entries, err := contents(path, 100000)
+	var recurse = 1000
+	if _, ok := os.LookupEnv("DONT_RECURSE"); ok {
+		recurse = 0
+	}
+
+	entries, err := contents(path, recurse)
 	if err != nil {
 		panic(err)
 	}
